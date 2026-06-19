@@ -2009,3 +2009,149 @@ body.light .tab-btn.active {
 body.light .spotlight-input {
   color: hsl(207, 95%, 45%);
 }
+
+/* Premium CCTV Camera Feed HUD */
+.camera-feed {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  background: #020617;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  box-shadow: inset 0 0 40px rgba(0,0,0,0.8);
+  margin-top: 12px;
+}
+.scanlines {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.22) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.04),
+    rgba(0, 255, 0, 0.01),
+    rgba(0, 0, 255, 0.04)
+  );
+  background-size: 100% 4px, 6px 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(103, 232, 249, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(103, 232, 249, 0.02) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+  z-index: 2;
+}
+.feed-header {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  color: #fff;
+  text-shadow: 0 1px 4px #000;
+}
+.live-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--red);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--red);
+  margin-right: 6px;
+  display: inline-block;
+}
+.pulse-dot {
+  animation: liveBlink 1.4s infinite;
+}
+@keyframes liveBlink {
+  50% { opacity: 0.2; }
+}
+.feed-content {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+.target-box {
+  position: absolute;
+  width: 160px;
+  height: 110px;
+  border: 1px dashed var(--red);
+  background: rgba(239, 68, 68, 0.03);
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.08);
+  animation: targetPulse 2.2s infinite ease-in-out;
+  transform: translate(-10px, 10px);
+}
+@keyframes targetPulse {
+  50% { border-color: var(--yellow); background: rgba(245, 158, 11, 0.03); }
+}
+.target-label {
+  position: absolute;
+  top: -18px;
+  left: 0;
+  background: var(--red);
+  color: #fff;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 9px;
+  padding: 2px 6px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+.confidence {
+  position: absolute;
+  bottom: 4px;
+  right: 6px;
+  color: var(--yellow);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 9px;
+  font-weight: 700;
+}
+.target-corner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--red);
+}
+.target-corner.top-left { top: -2px; left: -2px; border-right: 0; border-bottom: 0; }
+.target-corner.top-right { top: -2px; right: -2px; border-left: 0; border-bottom: 0; }
+.target-corner.bottom-left { bottom: -2px; left: -2px; border-right: 0; border-top: 0; }
+.target-corner.bottom-right { bottom: -2px; right: -2px; border-left: 0; border-top: 0; }
+
+.crosshair {
+  width: 24px;
+  height: 24px;
+  border: 1px solid rgba(103, 232, 249, 0.2);
+  border-radius: 50%;
+  position: relative;
+}
+.crosshair::before, .crosshair::after {
+  content: "";
+  position: absolute;
+  background: rgba(103, 232, 249, 0.2);
+}
+.crosshair::before { left: 50%; top: -6px; bottom: -6px; width: 1px; }
+.crosshair::after { top: 50%; left: -6px; right: -6px; height: 1px; }
+
+.telemetry-bar {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 9px;
+  color: var(--cyan);
+  text-shadow: 0 1px 3px #000;
+}
