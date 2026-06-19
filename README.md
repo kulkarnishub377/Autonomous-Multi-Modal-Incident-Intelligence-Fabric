@@ -6,8 +6,8 @@ AMIF ingests camera, sensor, document, and manual events; validates/deduplicates
 
 ## What is included
 
-- FastAPI backend/API gateway
-- JWT authentication and RBAC
+- FastAPI backend/API gateway (Security Hardened with `bcrypt`, `PyJWT`, and `slowapi` rate limiting)
+- JWT authentication and secure RBAC
 - Canonical AMIF event schema
 - Event ingestion API
 - Vision, audio, sensor, document, notification, user, action, audit, and knowledge-graph APIs
@@ -20,7 +20,7 @@ AMIF ingests camera, sensor, document, and manual events; validates/deduplicates
 - Document upload, chunking, and retrieval
 - Deterministic agent runtime: Observer, Retriever, Investigator, Planner, Safety Guard, Action Executor
 - Alerts, acknowledgements, audit logs
-- Advanced animated vanilla-JS operator console and architecture page served by FastAPI
+- Premium UI Revamp: Advanced animated Vanilla-JS operator console with vibrant glassmorphism, HSL colors, and micro-animations
 - Docker Compose with Postgres, Redis, Qdrant, Redpanda, Prometheus, Grafana
 - Kubernetes starter manifests
 - Demo seed route and script
@@ -98,13 +98,14 @@ See `.env.example`.
 
 ```text
 backend/app
-  core/       config, auth, RBAC, logging
+  connectors/ camera, audio, iot, and document stubs
+  core/       config, auth, RBAC, logging, rate limiting
   db/         SQLAlchemy setup
   models/     database models
   schemas/    Pydantic contracts
   services/   event, processor, search, document, agent, action
   routers/    REST API routers
-  static/     dashboard
+  static/     dashboard (Premium UI)
 infra/
   k8s/        Kubernetes starter manifests
   prometheus/ Prometheus config
