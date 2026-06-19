@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from app.core.security import get_current_user, require_min_role
 from app.db.session import get_db
 from app.models import User
-from app.schemas import AMIFEventIn
+from app.schemas import OmniSightEventIn
 from app.services.document_service import document_service
 from app.services.event_service import event_service
 from app.connectors.camera_connector import forklift_detected_event
@@ -27,8 +27,8 @@ def seed_demo(db: Session = Depends(get_db), user: User = Depends(get_current_us
         document_type='maintenance_manual',
         asset_id='machine_a',
     )
-    forklift = event_service.ingest(db, AMIFEventIn(**forklift_detected_event()), actor=user.email)
-    temp = event_service.ingest(db, AMIFEventIn(**temperature_event()), actor=user.email)
+    forklift = event_service.ingest(db, OmniSightEventIn(**forklift_detected_event()), actor=user.email)
+    temp = event_service.ingest(db, OmniSightEventIn(**temperature_event()), actor=user.email)
     return {
         'status': 'seeded',
         'document_id': doc.document_id,

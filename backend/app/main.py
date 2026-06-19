@@ -33,7 +33,7 @@ async def lifespan(app: FastAPI):
 
 settings = get_settings()
 app = FastAPI(
-    title='AMIF v1.0 API',
+    title='OmniSight v1.0 API',
     description='Autonomous Multi-Modal Incident Intelligence Fabric',
     version='1.0.0',
     lifespan=lifespan,

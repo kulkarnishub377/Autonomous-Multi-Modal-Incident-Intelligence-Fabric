@@ -31,7 +31,7 @@ class UserCreate(BaseModel):
     role: str = 'Viewer'
 
 
-class AMIFEventIn(BaseModel):
+class OmniSightEventIn(BaseModel):
     schema_version: str = '1.0'
     event_id: str = Field(default_factory=lambda: f'evt_{uuid4().hex[:16]}')
     source_id: str

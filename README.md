@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🌌 AMIF v1.0
+# 🌌 OmniSight v1.0
 **Autonomous Multi-Modal Incident Intelligence Fabric**
 
 [![Python Version](https://img.shields.io/badge/python-3.10%2B-blue.svg?style=for-the-badge&logo=python)](https://www.python.org/)
@@ -10,7 +10,7 @@
 
 *A production-grade, event-driven AI architecture project for real-time, multi-modal incident intelligence and agentic investigations.*
 
-[Operator Console](http://localhost:8000/static/console.html) · [Architecture Details](http://localhost:8000/static/architecture.html) · [API Docs](http://localhost:8000/docs) · [Interactive Report](http://localhost:8000/reports/AMIF_Interactive_Project_Report.html)
+[Operator Console](http://localhost:8000/static/console.html) · [Architecture Details](http://localhost:8000/static/architecture.html) · [API Docs](http://localhost:8000/docs) · [Interactive Report](http://localhost:8000/reports/OmniSight_Interactive_Project_Report.html)
 
 </div>
 
@@ -18,34 +18,34 @@
 
 ## ⚡ Executive Summary
 
-**AMIF** (Autonomous Multi-Modal Incident Intelligence Fabric) is an advanced, enterprise-ready AI platform designed to ingest and correlate high-velocity signals from diverse edge sources—including RTSP Cameras, IoT Sensors, Microphones, and standard operating procedure (SOP) Documents. 
+**OmniSight** (Autonomous Multi-Modal Incident Intelligence Fabric) is an advanced, enterprise-ready AI platform designed to ingest and correlate high-velocity signals from diverse edge sources—including RTSP Cameras, IoT Sensors, Microphones, and standard operating procedure (SOP) Documents. 
 
-Instead of relying on human operators to stare at monitors and match anomalies, AMIF automatically validates, deduplicates, and enriches these events in real time. Once an anomaly is detected, an **Agentic Workflow** kicks in: retrieving semantic evidence from vector memory, reasoning through risk factors, generating safety guardrails, and presenting a holistic view via a high-end, premium Operator Dashboard.
+Instead of relying on human operators to stare at monitors and match anomalies, OmniSight automatically validates, deduplicates, and enriches these events in real time. Once an anomaly is detected, an **Agentic Workflow** kicks in: retrieving semantic evidence from vector memory, reasoning through risk factors, generating safety guardrails, and presenting a holistic view via a high-end, premium Operator Dashboard.
 
 ---
 
 ## 🎯 Core Use Cases
 
-AMIF is designed to be highly adaptable to various physical-world monitoring scenarios:
+OmniSight is designed to be highly adaptable to various physical-world monitoring scenarios:
 
 1. **🏭 Smart Manufacturing & Industrial IoT**
    - **Scenario**: A critical CNC machine exhibits an IoT temperature spike while an audio sensor detects a grinding anomaly.
-   - **AMIF Response**: Correlates the two events, queries the machine's maintenance manual using RAG, determines a high risk of catastrophic failure, and issues a severe alert recommending immediate shutdown.
+   - **OmniSight Response**: Correlates the two events, queries the machine's maintenance manual using RAG, determines a high risk of catastrophic failure, and issues a severe alert recommending immediate shutdown.
 2. **🏢 Warehouse Safety & Logistics**
    - **Scenario**: A camera detects a forklift moving at high speed in a pedestrian-only zone.
-   - **AMIF Response**: Logs the safety violation, links it to the site safety protocol document, and automatically drafts an incident report for the shift supervisor.
+   - **OmniSight Response**: Logs the safety violation, links it to the site safety protocol document, and automatically drafts an incident report for the shift supervisor.
 3. **🏙️ Smart City Operations**
    - **Scenario**: Traffic cameras detect a collision, and nearby microphones register a loud impact.
-   - **AMIF Response**: Fuses the multi-modal data, assesses the severity, and prepares a structured payload for emergency dispatch APIs.
+   - **OmniSight Response**: Fuses the multi-modal data, assesses the severity, and prepares a structured payload for emergency dispatch APIs.
 4. **🔐 Secure Facility Monitoring**
    - **Scenario**: A badge-swipe is registered at a secure door, but the camera detects two faces (tailgating).
-   - **AMIF Response**: Flags the anomaly, cross-references the access control policy, and alerts the guard station with the exact video frame evidence.
+   - **OmniSight Response**: Flags the anomaly, cross-references the access control policy, and alerts the guard station with the exact video frame evidence.
 
 ---
 
 ## 🧠 Agentic Workflow Engine
 
-AMIF moves beyond simple rules-based alerts by utilizing a **Deterministic Agentic Runtime** composed of specialized AI personas:
+OmniSight moves beyond simple rules-based alerts by utilizing a **Deterministic Agentic Runtime** composed of specialized AI personas:
 
 - **👁️ Observer**: Continuously monitors the event stream and identifies raw anomalies (e.g., "Temperature > 85°C").
 - **🕵️ Investigator**: Groups related anomalies within specific time-windows and locations into structured **Incidents**.

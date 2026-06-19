@@ -2,7 +2,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.models import Event
-from app.schemas import AMIFEventIn
+from app.schemas import OmniSightEventIn
 from app.services.audit_service import audit
 from app.services.event_processor import event_processor
 from app.services.serde import dumps
@@ -21,7 +21,7 @@ TOPICS = {
 
 
 class EventService:
-    def ingest(self, db: Session, payload: AMIFEventIn, actor: str = 'system') -> Event:
+    def ingest(self, db: Session, payload: OmniSightEventIn, actor: str = 'system') -> Event:
         existing = None
         if payload.source_sequence is not None:
             existing = db.query(Event).filter(
