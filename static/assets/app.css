@@ -1851,6 +1851,16 @@ body.compact .main {
 }
 
 /* Responsive Styles */
+#logoutBtn span {
+  margin-right: 8px;
+  color: var(--red);
+  font-size: 16px;
+  transition: transform 0.2s;
+}
+#logoutBtn:hover span {
+  transform: translateX(-2px);
+}
+
 @media (max-width: 1200px) {
   .app-shell {
     grid-template-columns: 80px 1fr;
@@ -1870,6 +1880,26 @@ body.compact .main {
   }
   .side-card, .sidebar-footer .user-pill {
     display: none;
+  }
+  .sidebar-footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  #logoutBtn {
+    font-size: 0;
+    padding: 12px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--radius-sm);
+  }
+  #logoutBtn span {
+    font-size: 20px;
+    color: var(--red);
+    margin: 0;
   }
   .kpi-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -1892,21 +1922,57 @@ body.compact .main {
     grid-template-columns: 1fr;
   }
   .sidebar {
-    position: static;
+    position: sticky;
+    top: 0;
     height: auto;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     overflow-x: auto;
-    padding: 16px;
+    padding: 12px 20px;
     border-right: 0;
     border-bottom: 1px solid var(--line);
+    z-index: 1000;
+  }
+  .sidebar .brand-lockup div:not(.brand-mark) {
+    display: none;
   }
   .nav {
     display: flex;
     flex-direction: row;
-    gap: 4px;
+    gap: 6px;
   }
-  .sidebar-footer, .side-card {
+  .nav-item {
+    padding: 8px;
+    font-size: 0;
+  }
+  .nav-item span {
+    font-size: 18px;
+  }
+  .sidebar-footer {
+    display: block;
+    margin-top: 0;
+    margin-left: 12px;
+  }
+  .sidebar-footer .user-pill {
+    display: none;
+  }
+  #logoutBtn {
+    font-size: 0;
+    padding: 8px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--radius-sm);
+  }
+  #logoutBtn span {
+    font-size: 18px;
+    color: var(--red);
+    margin: 0;
+  }
+  .side-card {
     display: none;
   }
   .main {
