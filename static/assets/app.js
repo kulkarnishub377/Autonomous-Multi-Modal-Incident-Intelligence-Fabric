@@ -829,6 +829,37 @@ function renderIncidentDetail(id) {
   const related = state.data.events.filter(event => incident.related_events?.includes(event.event_id));
   const actions = state.data.actions.filter(action => action.incident_id === incident.incident_id);
   
+  const hasCameraFeed = related.some(event => event.source_type === 'camera');
+  const cameraFeedHtml = hasCameraFeed ? `
+    <div class="divider"></div>
+    <h4 style="margin-bottom: 8px;">Live CCTV Analytics Feed (SEC_EAST_01)</h4>
+    <div class="camera-feed">
+      <div class="scanlines"></div>
+      <div class="grid-overlay"></div>
+      <div class="feed-header">
+        <div><span class="live-dot pulse-dot"></span><b>LIVE Feed</b></div>
+        <span class="cam-id">CAM_A01_ZONE_A / SEC_EAST_01</span>
+        <span class="timestamp">${new Date(incident.created_at).toLocaleTimeString()}</span>
+      </div>
+      <div class="feed-content">
+        <div class="target-box">
+          <div class="target-label">WARNING: FORKLIFT IN ZONE A</div>
+          <div class="target-corner top-left"></div>
+          <div class="target-corner top-right"></div>
+          <div class="target-corner bottom-left"></div>
+          <div class="target-corner bottom-right"></div>
+          <div class="confidence">96.4% CONFIDENCE</div>
+        </div>
+        <div class="crosshair"></div>
+        <div class="telemetry-bar">
+          <span>X-BOUNDS: [12.44, 45.89]</span>
+          <span>Y-BOUNDS: [88.12, 102.5]</span>
+          <span>ZONE_TARGET: PLANT_RESTRICTED_A</span>
+        </div>
+      </div>
+    </div>
+  ` : '';
+  
   // Build Playbook check status
   if (!state.playbooks[id]) {
     state.playbooks[id] = [
@@ -891,6 +922,8 @@ function renderIncidentDetail(id) {
       <div style="display:flex; flex-wrap:wrap; gap:8px;">
         ${(incident.risk_indicators || []).map(pill).join(' ') || '<span class="muted">None matched</span>'}
       </div>
+      
+      ${cameraFeedHtml}
     </div>
     
     <!-- Tab 2: Evidence Timeline -->
