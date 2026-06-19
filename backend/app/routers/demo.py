@@ -7,6 +7,8 @@ from app.models import User
 from app.schemas import AMIFEventIn
 from app.services.document_service import document_service
 from app.services.event_service import event_service
+from app.connectors.camera_connector import forklift_detected_event
+from app.connectors.iot_connector import temperature_event
 
 router = APIRouter(prefix='/api/demo', tags=['demo'])
 
@@ -25,24 +27,8 @@ def seed_demo(db: Session = Depends(get_db), user: User = Depends(get_current_us
         document_type='maintenance_manual',
         asset_id='machine_a',
     )
-    forklift = event_service.ingest(db, AMIFEventIn(
-        source_id='camera_warehouse_a_01',
-        source_type='camera',
-        event_type='forklift_detected',
-        severity='medium',
-        location={'site': 'plant_1', 'building': 'warehouse', 'zone': 'restricted_zone'},
-        payload={'object': 'forklift', 'confidence': 0.94, 'bbox': [120, 84, 420, 360], 'frame_uri': 'evidence/demo-frame.jpg'},
-        trace={'producer': 'vision-service'},
-    ), actor=user.email)
-    temp = event_service.ingest(db, AMIFEventIn(
-        source_id='temp_sensor_machine_a',
-        source_type='iot_sensor',
-        event_type='temperature_reading',
-        severity='high',
-        location={'site': 'plant_1', 'zone': 'restricted_zone'},
-        payload={'machine_id': 'machine_a', 'temperature_celsius': 91.5, 'threshold_celsius': 80.0},
-        trace={'producer': 'sensor-service'},
-    ), actor=user.email)
+    forklift = event_service.ingest(db, AMIFEventIn(**forklift_detected_event()), actor=user.email)
+    temp = event_service.ingest(db, AMIFEventIn(**temperature_event()), actor=user.email)
     return {
         'status': 'seeded',
         'document_id': doc.document_id,

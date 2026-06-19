@@ -1,8 +1,10 @@
 from contextlib import asynccontextmanager
+import os
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 
@@ -66,4 +68,12 @@ app.include_router(demo.router)
 if Instrumentator:
     Instrumentator().instrument(app).expose(app, endpoint='/metrics')
 
-app.mount('/', StaticFiles(directory='app/static', html=True), name='static')
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+app.mount('/static', StaticFiles(directory=os.path.join(BASE_DIR, 'backend/app/static')), name='static')
+app.mount('/reports', StaticFiles(directory=os.path.join(BASE_DIR, 'reports')), name='reports')
+app.mount('/docs_files', StaticFiles(directory=os.path.join(BASE_DIR, 'docs')), name='docs_files')
+
+@app.get('/')
+def read_root():
+    return FileResponse(os.path.join(BASE_DIR, 'index.html'))

@@ -2,7 +2,7 @@
 """Seed AMIF demo data via HTTP API.
 
 Usage:
-  python scripts/seed_demo.py --base-url http://localhost:8000
+  python -m app.scripts.seed_demo --base-url http://localhost:8000
 """
 import argparse
 import json

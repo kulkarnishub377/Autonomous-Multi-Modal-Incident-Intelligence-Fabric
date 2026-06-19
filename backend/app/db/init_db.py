@@ -14,6 +14,8 @@ def ensure_admin(db: Session) -> None:
     settings = get_settings()
     existing = db.query(User).filter(User.email == settings.admin_email).first()
     if existing:
+        existing.hashed_password = get_password_hash(settings.admin_password)
+        db.commit()
         return
     admin = User(
         email=settings.admin_email,
