@@ -531,8 +531,8 @@ body.light .auth-foot a {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  padding: 24px;
-  margin-bottom: 24px;
+  padding: 20px;
+  margin-bottom: 16px;
 }
 
 .panel.compact {
