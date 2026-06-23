@@ -1993,6 +1993,18 @@ body.compact .main {
   transform: translateX(-2px);
 }
 
+/* Cockpit Header and Detail Action wraps */
+.top-buttons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
 /* Sidebar slide-out overlay backdrop */
 .sidebar-overlay {
   position: fixed;
@@ -2037,24 +2049,38 @@ body.compact .main {
   }
   
   .main {
-    padding: 16px;
+    padding: 12px;
   }
   
   .topbar {
     position: sticky;
     top: 0;
-    padding: 14px 20px;
-    margin-bottom: 24px;
+    padding: 8px 12px;
+    margin-bottom: 12px;
     z-index: 100;
   }
   
   .top-actions {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 8px;
-    margin-top: 10px;
+    margin-top: 6px;
     width: 100%;
-    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  
+  .top-buttons {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    width: 100%;
+    gap: 8px;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .top-buttons::-webkit-scrollbar {
+    display: none;
   }
   
   .global-search {
@@ -2093,11 +2119,29 @@ body.compact .main {
   .form-grid.two {
     grid-template-columns: 1fr;
   }
+
+  .auth-card {
+    grid-template-columns: 1fr;
+    padding: 24px;
+    gap: 20px;
+  }
+  
+  .auth-hero {
+    display: none;
+  }
+
+  .graph-layout-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .insight-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 576px) {
   .top-actions {
-    justify-content: space-between;
+    justify-content: flex-start;
   }
   
   .kpi-grid {
@@ -2108,16 +2152,6 @@ body.compact .main {
     grid-template-columns: 1fr;
   }
   
-  .auth-card {
-    grid-template-columns: 1fr;
-    padding: 24px;
-    gap: 20px;
-  }
-  
-  .auth-hero {
-    display: none; /* Hide hero on small mobile to keep form simple */
-  }
-  
   .modal {
     width: 100%;
     max-height: 95vh;
@@ -2125,6 +2159,31 @@ body.compact .main {
   
   .modal-body {
     padding: 16px;
+  }
+
+  .modal-backdrop {
+    padding: 12px;
+  }
+
+  #customEventForm > div {
+    grid-template-columns: 1fr !important;
+  }
+
+  .metric-row {
+    grid-template-columns: 1fr auto;
+    gap: 4px 12px;
+  }
+  .metric-row .bar {
+    grid-column: 1 / -1;
+    order: 3;
+    margin-top: 4px;
+  }
+  .metric-row span {
+    text-align: right;
+  }
+
+  .feed-header .cam-id {
+    display: none;
   }
 }
 

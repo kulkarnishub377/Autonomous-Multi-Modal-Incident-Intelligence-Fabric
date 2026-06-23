@@ -135,7 +135,7 @@ body.light .structure-card { background: #ffffff; }
 .card-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; margin-bottom: 18px; }
 .card-head h3 { margin: 0; font-size: 20px; }
 .card-head span { color: var(--violet); font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.12em; }
-.file-tree { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; color: #e2e8f0; }
+.file-tree { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; color: #e2e8f0; overflow-x: auto; white-space: nowrap; }
 .file-tree details { margin: 8px 0 8px 20px; }
 .file-tree > details { margin-left: 0; }
 .file-tree summary { cursor: pointer; color: var(--cyan); font-weight: 800; list-style: none; padding: 4px 0; }
