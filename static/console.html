@@ -113,23 +113,10 @@
     </aside>
 
     <main class="main">
-      <!-- Sandbox/Demo Warning Banner -->
-      <div id="sandboxBanner" class="toast success hidden" style="position:static; width:100%; border-left:0; border-bottom:4px solid var(--green); margin-bottom:20px; border-radius:14px; max-width:none; animation:none; display:flex; justify-content:space-between; align-items:center; padding:12px 20px;">
-        <div style="display:flex; align-items:center; gap:10px;">
-          <span>👁️</span>
-          <div>
-            <b style="color:var(--green); font-size:13px; display:inline;">Static Preview Sandbox</b>
-            <span style="font-size:12px; color:var(--soft); margin-left:8px;">Running purely client-side without local FastAPI backend APIs.</span>
-          </div>
-        </div>
-        <button class="btn small secondary" id="bannerSettingsBtn" style="height:26px; padding:0 8px; font-size:11px;">Configure</button>
-      </div>
-
       <header class="topbar glass">
         <div style="display:flex; align-items:center; gap:12px;">
           <button id="consoleMobileMenuBtn" class="btn ghost mobile-nav-btn" style="padding:0; width:36px; height:36px; display:none; justify-content:center; align-items:center; font-size:20px; border:1px solid var(--line); border-radius:8px;">☰</button>
           <div>
-            <div class="eyebrow">OmniSight v1.0 / Production-style MVP</div>
             <h2 id="pageTitle">Overview</h2>
           </div>
         </div>
@@ -137,14 +124,12 @@
           <div class="global-search">
             <span>⌕</span><input id="globalSearch" placeholder="Search incidents, events, documents..." />
           </div>
-          <button id="commandBtn" class="btn ghost" title="Ctrl/⌘ + K">⌘K</button>
-          <button id="liveBtn" class="btn secondary" title="Toggle live refresh">Live Off</button>
-          <button id="themeBtn" class="btn ghost" title="Toggle theme">Theme</button>
-          <button id="settingsBtn" class="btn ghost" title="Settings Manager">⚙ Configuration</button>
-          <button id="seedDemoBtn" class="btn accent">Seed Demo</button>
-          <button id="refreshBtn" class="btn secondary">Refresh</button>
-          <button id="exportBtn" class="btn ghost">Export</button>
-          <a class="btn ghost" href="/api-docs" target="_blank">API Docs</a>
+          <div class="top-buttons">
+            <button id="liveBtn" class="btn secondary" title="Toggle live refresh">Live Off</button>
+            <button id="themeBtn" class="btn ghost" title="Toggle theme">Theme</button>
+            <button id="settingsBtn" class="btn ghost" title="Settings Manager">⚙ Configuration</button>
+            <button id="seedDemoBtn" class="btn accent">Seed Demo</button>
+          </div>
         </div>
       </header>
 
