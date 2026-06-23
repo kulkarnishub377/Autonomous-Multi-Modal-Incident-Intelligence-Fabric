@@ -1246,6 +1246,9 @@ function renderIncidentDetail(id) {
       </div>
     </div>
   `;
+  if (window.innerWidth <= 900) {
+    el.scrollIntoView({ behavior: 'smooth' });
+  }
 }
 
 function renderEventsPage() {
