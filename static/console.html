@@ -83,7 +83,8 @@
   </div>
 
   <div id="appShell" class="app-shell hidden">
-    <aside class="sidebar">
+    <div id="sidebarOverlay" class="sidebar-overlay hidden"></div>
+    <aside class="sidebar" id="appSidebar">
       <div class="brand-lockup">
         <div class="brand-mark">A</div>
         <div>
@@ -125,9 +126,12 @@
       </div>
 
       <header class="topbar glass">
-        <div>
-          <div class="eyebrow">OmniSight v1.0 / Production-style MVP</div>
-          <h2 id="pageTitle">Overview</h2>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <button id="consoleMobileMenuBtn" class="btn ghost mobile-nav-btn" style="padding:0; width:36px; height:36px; display:none; justify-content:center; align-items:center; font-size:20px; border:1px solid var(--line); border-radius:8px;">☰</button>
+          <div>
+            <div class="eyebrow">OmniSight v1.0 / Production-style MVP</div>
+            <h2 id="pageTitle">Overview</h2>
+          </div>
         </div>
         <div class="top-actions">
           <div class="global-search">
