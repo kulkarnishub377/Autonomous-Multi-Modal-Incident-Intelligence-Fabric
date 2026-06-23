@@ -455,6 +455,31 @@ function handleMockApi(path, options) {
     return mockDb.audit;
   }
 
+  if (path.startsWith('/api/auth/users')) {
+    if (method === 'POST') {
+      const body = JSON.parse(options.body);
+      const email = body.email;
+      const role = body.role || 'Viewer';
+      const existing = mockDb.users.find(u => u.email === email);
+      if (existing) {
+        throw new Error('User already exists');
+      }
+      const newUser = { id: 'usr_' + Math.random().toString(36).substr(2, 5), email, role, is_active: true };
+      mockDb.users.unshift(newUser);
+      
+      mockDb.audit.unshift({
+        audit_id: 'aud_' + Math.random().toString(36).substr(2, 5),
+        action: 'user.created',
+        actor: state.email || 'admin@example.com',
+        target_type: 'user',
+        target_id: email,
+        created_at: new Date().toISOString()
+      });
+      saveMockDb();
+      return newUser;
+    }
+  }
+
   if (path.startsWith('/api/users')) {
     return mockDb.users;
   }
@@ -1460,12 +1485,97 @@ function renderSecurityPage() {
     ['View audit logs', '✓', '—', '—', '—'],
   ];
   $('#rbacMatrix').innerHTML = `<div class="table-wrap"><table class="rbac-table"><thead><tr><th>Permission</th>${roles.map(role => `<th>${role}</th>`).join('')}</tr></thead><tbody>${permissions.map(row => `<tr>${row.map(cell => `<td>${escapeHtml(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+  
+  const addBtn = $('#openCreateUserModalBtn');
+  if (addBtn) {
+    addBtn.style.display = state.role === 'Admin' ? 'inline-flex' : 'none';
+  }
+
   $('#userList').innerHTML = state.role === 'Admin'
     ? (state.data.users.map(user => `<div class="item-card"><b>${escapeHtml(user.email)}</b> ${pill(user.role)}<p class="muted">${user.is_active ? 'Active' : 'Disabled'}</p></div>`).join('') || empty('No active system users.'))
     : empty('Admin security privileges required.');
   $('#auditLogList').innerHTML = state.role === 'Admin'
     ? (state.data.audit.map(log => timelineItem(log.action, `${log.actor} · ${log.target_type || ''} ${log.target_id || ''} · ${fmtDate(log.created_at)}`, 'audit')).join('') || empty('No audit logs.'))
     : empty('Admin security privileges required.');
+}
+
+function openCreateUserDialog() {
+  const formHtml = `
+    <form id="createUserForm" class="form-grid single" style="margin:0;" onsubmit="event.preventDefault();">
+      <label>Email Address
+        <input id="createEmail" type="email" placeholder="operator@example.com" required style="width:100%;" />
+      </label>
+      <label>Password
+        <input id="createPassword" type="password" placeholder="Min 6 characters" required minlength="6" style="width:100%;" />
+      </label>
+      <label>Access Role
+        <select id="createRole" style="width:100%;">
+          <option value="Admin">Admin (Full write/security access)</option>
+          <option value="Operator">Operator (Acknowledge & run checks)</option>
+          <option value="Analyst">Analyst (Query & SOP indexes)</option>
+          <option value="Viewer">Viewer (Read-only access)</option>
+        </select>
+      </label>
+    </form>
+  `;
+  const actionsHtml = `
+    <button class="btn primary small" id="submitCreateUserBtn">Create Account</button>
+    <button class="btn ghost small" data-close-modal-btn>Cancel</button>
+  `;
+  showModal('Create New Operator User', formHtml, actionsHtml);
+  
+  const modal = $('#modalHost');
+  modal.querySelector('#submitCreateUserBtn').addEventListener('click', async () => {
+    const email = modal.querySelector('#createEmail').value;
+    const password = modal.querySelector('#createPassword').value;
+    const role = modal.querySelector('#createRole').value;
+    
+    if (!email || !password || password.length < 6) {
+      toast('Email and Password (min 6 characters) are required.', 'error');
+      return;
+    }
+    
+    try {
+      startProgress();
+      await createUserApi(email, password, role);
+      closeModal();
+      toast(`User ${email} created successfully.`, 'success');
+      await refreshAll({ quiet: true });
+    } catch (err) {
+      toast(err.message, 'error');
+    }
+  });
+  
+  modal.querySelector('[data-close-modal-btn]').addEventListener('click', closeModal);
+}
+
+async function createUserApi(email, password, role) {
+  if (state.useMocks) {
+    await new Promise(r => setTimeout(r, 450));
+    const existing = mockDb.users.find(u => u.email === email);
+    if (existing) {
+      throw new Error('User already exists');
+    }
+    const newUser = { id: 'usr_' + Math.random().toString(36).substr(2, 5), email, role, is_active: true };
+    mockDb.users.unshift(newUser);
+    
+    mockDb.audit.unshift({
+      audit_id: 'aud_' + Math.random().toString(36).substr(2, 5),
+      action: 'user.created',
+      actor: state.email || 'admin@example.com',
+      target_type: 'user',
+      target_id: email,
+      created_at: new Date().toISOString()
+    });
+    saveMockDb();
+    return newUser;
+  }
+  
+  return await api('/api/auth/users', {
+    method: 'POST',
+    headers: authHeaders(),
+    body: JSON.stringify({ email, password, role })
+  });
 }
 
 function showModal(title, bodyHtml, actionsHtml = '') {
