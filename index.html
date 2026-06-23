@@ -24,7 +24,8 @@
     </a>
     <nav class="site-nav" aria-label="Primary navigation">
       <a href="#architecture">Architecture</a>
-      <a href="#features">Features</a>
+      <a href="#features">Capabilities</a>
+      <a href="#showcase">Showcase</a>
       <a href="#docs-section">Documentation</a>
       <a href="#structure">Structure</a>
       <a href="#reports">Reports</a>
@@ -100,6 +101,197 @@
         <article class="feature-card reveal"><span>04</span><h3>Agent Runtime</h3><p>Observer, Retriever, Investigator, Planner, Safety Guard, and Executor workflow with trace viewer.</p></article>
         <article class="feature-card reveal"><span>05</span><h3>Knowledge Graph</h3><p>Interactive graph of incidents, events, machines, zones, and documents with relationship inspection.</p></article>
         <article class="feature-card reveal"><span>06</span><h3>Governance & Audit</h3><p>JWT, RBAC, audit logs, human approval policies, and guardrail decisions for enterprise AI safety.</p></article>
+      </div>
+    </section>
+
+    <section class="section" id="showcase">
+      <div class="section-head reveal">
+        <span class="eyebrow">Interactive Simulator</span>
+        <h2>Explore OmniSight Capabilities in Real-Time</h2>
+        <p>Interact with our live browser-side simulators to see how multimodal ingestion, correlation rules, RAG, agents, graphs, and security controls function under the hood.</p>
+      </div>
+
+      <div class="showcase-container glass reveal">
+        <!-- Sidebar Navigation Tabs -->
+        <div class="showcase-tabs">
+          <button class="showcase-tab active" data-showcase="ingest">
+            <span class="icon">◎</span>
+            <span class="tab-label">Multimodal Ingestion</span>
+          </button>
+          <button class="showcase-tab" data-showcase="command">
+            <span class="icon">◆</span>
+            <span class="tab-label">Incident Command</span>
+          </button>
+          <button class="showcase-tab" data-showcase="rag">
+            <span class="icon">▤</span>
+            <span class="tab-label">RAG Chunk Map</span>
+          </button>
+          <button class="showcase-tab" data-showcase="agent">
+            <span class="icon">✦</span>
+            <span class="tab-label">Agent Orchestrator</span>
+          </button>
+          <button class="showcase-tab" data-showcase="graph">
+            <span class="icon">⟐</span>
+            <span class="tab-label">Knowledge Graph</span>
+          </button>
+          <button class="showcase-tab" data-showcase="security">
+            <span class="icon">◈</span>
+            <span class="tab-label">Governance & Audit</span>
+          </button>
+        </div>
+
+        <!-- Showcase Panels content -->
+        <div class="showcase-panels">
+          
+          <!-- Tab 1: Multimodal Ingestion -->
+          <div class="showcase-panel active" id="panel-ingest">
+            <div class="panel-layout">
+              <div class="panel-left">
+                <h3>Trigger Multimodal Signals</h3>
+                <p>Simulate external devices feeding telemetry into OmniSight. Click on any source to package a standard telemetry schema and emit it to the canonical API boundary.</p>
+                <div class="trigger-buttons">
+                  <button class="showcase-btn" id="simVisionBtn"><span>📷</span> CCTV: Forklift in restricted zone</button>
+                  <button class="showcase-btn" id="simTempBtn"><span>🌡️</span> Sensor: Machine A heat warning</button>
+                  <button class="showcase-btn" id="simAudioBtn"><span>🎙️</span> Mic: Abnormal grinding sound</button>
+                  <button class="showcase-btn" id="simDocBtn"><span>📄</span> Document: New Machine A manual</button>
+                </div>
+              </div>
+              <div class="panel-right">
+                <div class="terminal-container">
+                  <div class="terminal-bar"><span>raw.events Ingestion Terminal</span><i></i><i></i><i></i></div>
+                  <pre id="ingestTerminalCode" class="terminal-body">// Awaiting signal trigger...</pre>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 2: Incident Command -->
+          <div class="showcase-panel" id="panel-command">
+            <div class="panel-layout">
+              <div class="panel-left">
+                <h3>Correlation Engine</h3>
+                <p>Observe how discrete event streams are evaluated within a rolling 10-minute correlation window to construct consolidated operations incidents.</p>
+                <div class="correlation-logic">
+                  <div class="logic-line"><b>IF</b> <code>restricted_zone_intrusion</code> (CCTV)</div>
+                  <div class="logic-line"><b>AND</b> <code>temperature_anomaly >= 85°C</code> (IoT Sensor)</div>
+                  <div class="logic-line"><b>THEN</b> Correlate into a <b>High Severity Incident</b></div>
+                </div>
+                <button class="btn secondary" id="runCorrelationDemoBtn">Trigger Event Correlation Match</button>
+              </div>
+              <div class="panel-right">
+                <div class="mock-incident-card" id="showcaseIncidentCard">
+                  <div class="mic-header">
+                    <span class="badge high">High Severity</span>
+                    <span class="badge risk-score">Risk: 88%</span>
+                  </div>
+                  <h4>Incident #INC-01: Machine A Overheating & Restricted Zone Activity</h4>
+                  <p class="summary">Automated correlation matching connected forklift entry in Zone A with subsequent Machine A temperature surge (92.4°C).</p>
+                  <div class="evidence-timeline">
+                    <div class="timeline-point"><span class="dot camera"></span> 10:30:00 - CCTV Forklift detection</div>
+                    <div class="timeline-point"><span class="dot sensor"></span> 10:31:10 - Machine A temperature spike</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 3: RAG Chunk Map -->
+          <div class="showcase-panel" id="panel-rag">
+            <div class="panel-layout">
+              <div class="panel-left">
+                <h3>Semantic Memory Retrieval</h3>
+                <p>Documents uploaded to OmniSight are chunked, vectorized, and indexed in vector memory. Type a query to simulate visual vector retrieval mapping.</p>
+                <div class="rag-search-box">
+                  <input type="text" id="simRagInput" placeholder="Type: e.g., temperature, forklift, bearing..." value="temperature" />
+                </div>
+                <div class="rag-citations" id="simRagCitations">
+                  <div class="citation-item"><b>CITED</b>: Machine A manual (Chunk #2) · Score 0.95</div>
+                </div>
+              </div>
+              <div class="panel-right">
+                <div class="chunk-map-legend"><span>Vector Chunk Blocks (Similarity Heatmap)</span></div>
+                <div class="showcase-chunk-grid" id="simChunkGrid">
+                  <!-- Generated by JS -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 4: Agent Orchestrator -->
+          <div class="showcase-panel" id="panel-agent">
+            <div class="panel-layout">
+              <div class="panel-left">
+                <h3>Auditable Reasoning Chain</h3>
+                <p>When an incident triggers, our agentic runtime initiates an autonomous analysis cycle. Clicking run will animate the orchestrator stages.</p>
+                <button class="btn primary" id="simRunAgentBtn">Execute Investigation Run</button>
+              </div>
+              <div class="panel-right">
+                <div class="agent-graph-nodes">
+                  <div class="agent-graph-node" data-node="obs"><b>Observer</b><span>Perceive Signals</span></div>
+                  <div class="agent-graph-node" data-node="ret"><b>Retriever</b><span>Fetch SOP / Context</span></div>
+                  <div class="agent-graph-node" data-node="inv"><b>Investigator</b><span>Build Hypotheses</span></div>
+                  <div class="agent-graph-node" data-node="plan"><b>Planner</b><span>Formulate Action</span></div>
+                  <div class="agent-graph-node" data-node="guard"><b>Guard</b><span>Verify Policies</span></div>
+                  <div class="agent-graph-node" data-node="exe"><b>Executor</b><span>Mitigate Alert</span></div>
+                </div>
+                <div class="terminal-container" style="margin-top:16px;">
+                  <div class="terminal-bar"><span>Orchestrator Exec Log</span></div>
+                  <pre id="agentShowcaseTerminal" class="terminal-body" style="min-height:100px;">// Press "Execute Investigation Run" to begin...</pre>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 5: Knowledge Graph -->
+          <div class="showcase-panel" id="panel-graph">
+            <div class="panel-layout">
+              <div class="panel-left">
+                <h3>Relationship Topology</h3>
+                <p>Hover over nodes in the interactive network map to see the semantic links connecting incidents, events, documents, and machinery locations together.</p>
+                <div class="graph-hover-info" id="simGraphHoverInfo">
+                  Hover over any node to inspect relationship details.
+                </div>
+              </div>
+              <div class="panel-right">
+                <div class="graph-svg-container">
+                  <svg id="simGraphSvg" viewBox="0 0 400 300">
+                    <!-- SVG nodes and links generated by JS -->
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 6: Governance & Audit -->
+          <div class="showcase-panel" id="panel-security">
+            <div class="panel-layout">
+              <div class="panel-left">
+                <h3>Enterprise RBAC Governance</h3>
+                <p>Toggle system access roles to instantly audit and witness how authorization tokens change the permission scopes and the corresponding system audit logs.</p>
+                <div class="role-selector">
+                  <button class="role-pill active" data-role="Admin">Admin</button>
+                  <button class="role-pill" data-role="Operator">Operator</button>
+                  <button class="role-pill" data-role="Analyst">Analyst</button>
+                  <button class="role-pill" data-role="Viewer">Viewer</button>
+                </div>
+              </div>
+              <div class="panel-right">
+                <div class="permissions-card">
+                  <h4>Active Permissions Scope</h4>
+                  <ul class="permission-list" id="simPermissionList">
+                    <!-- Updated by JS -->
+                  </ul>
+                  <div class="divider" style="margin:12px 0;"></div>
+                  <h4>Simulated Audit Logs Stream</h4>
+                  <div class="audit-stream" id="simAuditStream">
+                    <!-- Updated by JS -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
     </section>
 
