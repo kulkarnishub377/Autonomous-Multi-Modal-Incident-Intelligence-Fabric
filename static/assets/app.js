@@ -80,7 +80,9 @@ function fmtDate(value) {
 }
 
 function shortId(id) {
-  return id ? `${String(id).slice(0, 8)}…${String(id).slice(-4)}` : '—';
+  if (!id) return '—';
+  const s = String(id);
+  return s.length > 12 ? `${s.slice(0, 8)}…${s.slice(-4)}` : s;
 }
 
 function pill(value) {
@@ -383,13 +385,15 @@ function handleMockApi(path, options) {
     const text = options.body.get('file');
     const name = options.body.get('file_name') || 'uploaded_doc.txt';
     const asset = options.body.get('asset_id') || 'global';
+    const docText = typeof text === 'string' && text ? text : 'Custom Uploaded Document Content. Active operator supervision mandated.';
+    const sentences = docText.split(/(?<=\.)\s+/).filter(Boolean);
     const newDoc = {
       document_id: 'doc_' + Math.random().toString(36).substr(2, 5),
       file_name: name,
       document_type: 'manual',
       asset_id: asset,
-      chunk_count: 1,
-      text: 'Custom Uploaded Document Content. Active operator supervision mandated.',
+      chunk_count: sentences.length,
+      text: docText,
     };
     mockDb.documents.unshift(newDoc);
     saveMockDb();
@@ -622,10 +626,10 @@ function renderShared() {
   const openIncidents = state.data.incidents.filter(item => item.status === 'open').length;
   const openAlerts = state.data.alerts.filter(item => item.status === 'open').length;
   const kpis = [
-    ['Events', stats.events, 'normalized signals', 'rgba(103,232,249,.14)'],
-    ['Incidents', stats.incidents, `${openIncidents} open alert desks`, 'rgba(251,113,133,.14)'],
-    ['Alerts', stats.alerts, `${openAlerts} verified critical`, 'rgba(251,191,36,.14)'],
-    ['Documents', stats.documents, 'semantic chunks', 'rgba(52,211,153,.14)'],
+    ['Events', stats.events, 'signals processed', 'rgba(103,232,249,.14)'],
+    ['Incidents', stats.incidents, `${openIncidents} currently active`, 'rgba(251,113,133,.14)'],
+    ['Alerts', stats.alerts, `${openAlerts} active alerts`, 'rgba(251,191,36,.14)'],
+    ['Documents', stats.documents, 'SOP chunks indexed', 'rgba(52,211,153,.14)'],
     ['Agent Runs', stats.agent_runs, 'automated checks', 'rgba(167,139,250,.16)'],
   ];
   const html = kpis.map(([label, value, sub, glow]) => `
@@ -889,12 +893,12 @@ function selectDocumentForChunkMap(docId) {
   $('#chunkGridContainer').classList.remove('hidden');
 
   const chunks = [];
-  const textParts = doc.text.split('.').map(s => s.trim()).filter(Boolean);
+  const textParts = doc.text.split(/(?<=\.)\s+/).map(s => s.trim()).filter(Boolean);
   
   textParts.forEach((part, index) => {
     chunks.push({
       chunk_id: `${docId}_chunk_${index}`,
-      text: part + '.',
+      text: part,
       token_count: Math.round(part.split(/\s+/).length * 1.3) + 4,
       score: 0
     });

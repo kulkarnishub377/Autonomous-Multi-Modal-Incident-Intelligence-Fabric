@@ -589,6 +589,8 @@ a {
   color: var(--muted);
   font-size: 12px;
   margin-top: 6px;
+  position: relative;
+  z-index: 2;
 }
 
 /* Dynamic Cards / Item Stack */
@@ -716,7 +718,8 @@ a {
 }
 
 .mono {
-  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-family: 'JetBrains Mono', Consolas, 'Fira Code', monospace;
+  letter-spacing: -0.02em;
 }
 
 /* Empty States */
@@ -1599,6 +1602,7 @@ body.light {
   --text: hsl(226, 40%, 10%);
   --muted: hsl(226, 12%, 48%);
   --soft: hsl(226, 15%, 28%);
+  --shadow: 0 10px 25px -3px rgba(15, 23, 42, 0.05), 0 4px 6px -4px rgba(15, 23, 42, 0.05);
   background: radial-gradient(circle at 10% 0%, #dbeafe 0%, #f1f5f9 40%), #f1f5f9;
 }
 
@@ -1747,6 +1751,10 @@ body.light .badge.acknowledged {
   background: rgba(103, 232, 249, 0.2);
   color: hsl(207, 95%, 45%);
   border-color: rgba(103, 232, 249, 0.4);
+}
+
+body.light .kpi-sparkline {
+  opacity: 0.18;
 }
 
 body.light .badge.high, body.light .badge.critical {
@@ -2194,7 +2202,7 @@ body.light .spotlight-input {
   width: 100%;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.65;
+  opacity: 0.45;
 }
 .kpi-label, .kpi-value, .kpi-sub {
   position: relative;
